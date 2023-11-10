@@ -17,6 +17,7 @@
 #include "light.h"
 #include "camera.h"
 #include "cube.h"
+#include "skybox.h"
 
 using namespace std;
 
@@ -25,6 +26,7 @@ const int SCREEN_HEIGHT = 600;
 const float ASPECT_RATIO = static_cast<float>(SCREEN_WIDTH) / static_cast<float>(SCREEN_HEIGHT);
 const int MAX_RECURSION = 3;
 const float BIAS = 0.0001f;
+Skybox skybox("./assets/wallpaper2.jpg");
 
 
 SDL_Renderer* renderer;
@@ -87,7 +89,8 @@ Color castRay(const glm::vec3& rayOrigin, const glm::vec3& rayDirection, const s
     }
 
     if (!intersect.isIntersecting || recursion == MAX_RECURSION) {
-        return Color(173, 216, 230);
+        //return Color(173, 216, 230);
+        return skybox.getColor(rayDirection);  // Sky color
     }
 
 
@@ -189,6 +192,14 @@ void setUp() {
     objects.push_back(new Cube(glm::vec3(-3.0f, 0.5f, -3.0f), glm::vec3(0.3f, 0.3f, 0.5f), grass, texture)); //BASE
     objects.push_back(new Cube(glm::vec3(-1.42f, 0.8f, -1.12f), glm::vec3(-3.00f, 0.5f, 0.50f), glass, texture)); //GRAMA POR ENCIMA
     
+    objects.push_back(new Cube(glm::vec3(-1.42f, 0.8f, -3.00f), glm::vec3(-3.00f, 0.5f, -1.98f), glass, texture)); //GRAMA CAMA
+    objects.push_back(new Cube(glm::vec3(-1.42f, 0.8f, -2.42f), glm::vec3(-1.09f, 0.5f, -2.10f), rubber, texture)); //HORNO
+    objects.push_back(new Cube(glm::vec3(-1.42f, 0.8f, -2.10f), glm::vec3(-1.09f, 0.5f, -2.74f), brown, texture)); //MESA DE CRAFTEO
+    objects.push_back(new Cube(glm::vec3(0.30f, 0.8f, -1.75f), glm::vec3(-0.16f, 0.5f, -1.34f), ivory, texture)); //GRAMA FRONTAL
+    objects.push_back(new Cube(glm::vec3(-2.60f, 0.8f, -1.75f), glm::vec3(-3.00f, 0.5f, -1.34f), brown, texture)); //GRAMA BACK
+
+    objects.push_back(new Cube(glm::vec3(-1.42f, 0.8f, -0.75f), glm::vec3(-1.09f, 0.5f, -1.12f), rubber, texture)); //ORO
+    objects.push_back(new Cube(glm::vec3(-1.72f, 0.8f, -1.12f), glm::vec3(-1.43f, 0.5f, -1.42f), rubber, texture)); //DIAMANTE
 
     /*
     for (int i = -1; i <= 1; i++) {
