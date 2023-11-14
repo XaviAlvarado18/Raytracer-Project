@@ -72,7 +72,7 @@ SDL_Texture* loadTexture(const std::string& path) {
 }
 
 // Cargar la textura de imagen
-SDL_Texture* texture = loadTexture("/assets/gameover.png");
+SDL_Texture* texture = loadTexture("./assets/emerald.png");
 
 Color castRay(const glm::vec3& rayOrigin, const glm::vec3& rayDirection, const short recursion = 0) {
     float zBuffer = 99999;
@@ -142,12 +142,13 @@ void setUp() {
         0.0f
     };
 
-    Material mirror = {
-        Color(255, 255, 255),
+    Material green = {
+        Color(95, 149, 83),
+        0.8f,
+        0.5f,
+        32.0f,
+        0.2f,
         0.0f,
-        10.0f,
-        1425.0f,
-        0.9f,
         0.0f
     };
 
@@ -187,32 +188,173 @@ void setUp() {
         0.0f
     };
 
-    //objects.push_back(new Cube(glm::vec3(-1.0f, -1.0f, -0.5f), glm::vec3(1.0f, 1.0f, 0.4f), rubber));
-    objects.push_back(new Cube(glm::vec3(0.31f, 0.8f, 0.1f), glm::vec3(-0.12f, 0.5f, 0.50f), glass, texture)); //BLOQUE CREEPER
-    objects.push_back(new Cube(glm::vec3(-3.0f, 0.5f, -3.0f), glm::vec3(0.3f, 0.3f, 0.5f), grass, texture)); //BASE
-    objects.push_back(new Cube(glm::vec3(-1.42f, 0.8f, -1.12f), glm::vec3(-3.00f, 0.5f, 0.50f), glass, texture)); //GRAMA POR ENCIMA
+
+    Material leaves = {
+        Color(0, 255, 0),   // Green leaves color
+        0.8,
+        0.2,
+        10.0f,
+        0.0f,
+        0.0f
+    };
+
+
+    Material minecraftChestMaterial = {
+        Color(139, 69, 19),  // Marrón claro (RGB)
+        0.8f,                // Coeficiente de reflexión difusa
+        0.2f,                // Coeficiente de reflexión especular
+        50.0f,               // Coeficiente especular
+        0.1f,                // Coeficiente de reflectividad
+        0.0f,                // Coeficiente de transparencia (no transparente)
+        1.0f                 // Índice de refracción (no se refracta)
+    };
+
+    Material horno = {
+        Color(143, 143, 144),  // Marrón claro (RGB)
+        0.8f,                // Coeficiente de reflexión difusa
+        0.2f,                // Coeficiente de reflexión especular
+        50.0f,               // Coeficiente especular
+        0.1f,                // Coeficiente de reflectividad
+        0.0f,                // Coeficiente de transparencia (no transparente)
+        1.0f                 // Índice de refracción (no se refracta)
+    };
+
+    Material mesa_crafteo= {
+        Color(104, 80, 52),  // Marrón claro (RGB)
+        0.8f,                // Coeficiente de reflexión difusa
+        0.2f,                // Coeficiente de reflexión especular
+        50.0f,               // Coeficiente especular
+        0.1f,                // Coeficiente de reflectividad
+        0.0f,                // Coeficiente de transparencia (no transparente)
+        1.0f                 // Índice de refracción (no se refracta)
+    };
+
+    Material minecraftGold = {
+        Color(199, 172, 53),   // Gold block color
+        0.8,
+        0.2,
+        50.0f,
+        0.8f,
+        0.0f,
+        1.0f  // You may adjust refraction index based on your specific needs
+    };    
+
+    Material minecraftLapisLazuli = {
+        Color(16, 43, 105),   // Lapis Lazuli block color
+        0.8,
+        0.2,
+        30.0f,
+        0.5f,
+        0.0f,
+        1.0f  // You may adjust refraction index based on your specific needs
+    };
+
+    Material minecraftDiamond = {
+        Color(159, 245, 228),   // Diamond block color
+        0.8,
+        0.2,
+        80.0f,
+        0.9f,
+        0.0f,
+        2.4f  // You may adjust refraction index based on your specific needs
+    };
+
+    Material minecraftRedstone = {
+        Color(63, 5, 0),   // Redstone dust color
+        0.8,
+        0.2,
+        20.0f,
+        0.3f,
+        0.0f,
+        1.0f  // You may adjust refraction index based on your specific needs
+    };
+        
+    // Cuerpo principal del Creeper
+    objects.push_back(new Cube(glm::vec3(0.25f, 1.0f, 0.15f), glm::vec3(0.05f, 1.6f, 0.45f), green));
+
+    // Cabeza del Creeper
+    objects.push_back(new Cube(glm::vec3(0.31f, 1.6f, 0.1f), glm::vec3(0.0f, 1.9f, 0.5f), green));
+
+    // Ojoss
+    objects.push_back(new Cube(glm::vec3(0.41f, 1.78f, 0.16f), glm::vec3(0.0f, 1.84f, 0.24f), minecraftChestMaterial));
+    objects.push_back(new Cube(glm::vec3(0.41f, 1.78f, 0.44f), glm::vec3(0.0f, 1.84f, 0.36f), minecraftChestMaterial));
+
+    // Boca
+    objects.push_back(new Cube(glm::vec3(0.41f, 1.73f, 0.22f), glm::vec3(0.0f, 1.75f, 0.34f), minecraftChestMaterial));
+    objects.push_back(new Cube(glm::vec3(0.41f, 1.67f, 0.18f), glm::vec3(0.0f, 1.73f, 0.42f), minecraftChestMaterial));
     
-    objects.push_back(new Cube(glm::vec3(-1.42f, 0.8f, -3.00f), glm::vec3(-3.00f, 0.5f, -1.98f), glass, texture)); //GRAMA CAMA
-    objects.push_back(new Cube(glm::vec3(-1.42f, 0.8f, -2.42f), glm::vec3(-1.09f, 0.5f, -2.10f), rubber, texture)); //HORNO
-    objects.push_back(new Cube(glm::vec3(-1.42f, 0.8f, -2.10f), glm::vec3(-1.09f, 0.5f, -2.74f), brown, texture)); //MESA DE CRAFTEO
-    objects.push_back(new Cube(glm::vec3(0.30f, 0.8f, -1.75f), glm::vec3(-0.16f, 0.5f, -1.34f), ivory, texture)); //GRAMA FRONTAL
-    objects.push_back(new Cube(glm::vec3(-2.60f, 0.8f, -1.75f), glm::vec3(-3.00f, 0.5f, -1.34f), brown, texture)); //GRAMA BACK
-
-    objects.push_back(new Cube(glm::vec3(-1.42f, 0.8f, -0.75f), glm::vec3(-1.09f, 0.5f, -1.12f), rubber, texture)); //ORO
-    objects.push_back(new Cube(glm::vec3(-1.72f, 0.8f, -1.12f), glm::vec3(-1.43f, 0.5f, -1.42f), rubber, texture)); //DIAMANTE
-
-    /*
-    for (int i = -1; i <= 1; i++) {
-        for (int j = -1; j <= 1; j++) {
-            glm::vec3 position = glm::vec3(i * 1.0f, -2.0f, j * 1.0f); // Ajusta la altura según tus preferencias
-            objects.push_back(new Cube(position, glm::vec3(0.2f, 0.1f, 0.2f), grass, nullptr)); // Asegúrate de ajustar los parámetros según sea necesario
-        }
-    }
-   
-    */
+    objects.push_back(new Cube(glm::vec3(0.41f, 1.64f, 0.18f), glm::vec3(0.0f, 1.67f, 0.23f), minecraftChestMaterial));
+    objects.push_back(new Cube(glm::vec3(0.41f, 1.64f, 0.37f), glm::vec3(0.0f, 1.67f, 0.42f), minecraftChestMaterial));
 
 
-    //objects.push_back(new Cube(glm::vec3(0.0f, 1.0f, -3.0f), 1.0f, glass));
+    // Piernas
+    objects.push_back(new Cube(glm::vec3(0.31f, 0.8f, 0.15f), glm::vec3(0.0f, 1.0f, 0.28f), green));
+    objects.push_back(new Cube(glm::vec3(0.31f, 0.8f, 0.32f), glm::vec3(0.0f, 1.0f, 0.45f), green));
+
+    
+
+    objects.push_back(new Cube(glm::vec3(0.31f, 0.8f, 0.1f), glm::vec3(-0.12f, 0.5f, 0.50f), glass)); //BLOQUE CREEPER
+
+
+    
+
+
+    objects.push_back(new Cube(glm::vec3(-3.0f, 0.5f, -3.0f), glm::vec3(0.3f, 0.3f, 0.5f), grass)); //BASE
+    objects.push_back(new Cube(glm::vec3(-1.42f, 0.8f, -1.12f), glm::vec3(-3.00f, 0.5f, 0.50f), glass)); //GRAMA POR ENCIMA
+    
+    objects.push_back(new Cube(glm::vec3(-1.42f, 0.8f, -3.00f), glm::vec3(-3.00f, 0.5f, -1.98f), glass)); //GRAMA CAMA
+    objects.push_back(new Cube(glm::vec3(-1.42f, 0.8f, -2.42f), glm::vec3(-1.09f, 0.5f, -2.10f), horno)); //HORNO
+    objects.push_back(new Cube(glm::vec3(-1.42f, 0.8f, -2.10f), glm::vec3(-1.09f, 0.5f, -2.74f), mesa_crafteo)); //MESA DE CRAFTEO
+    objects.push_back(new Cube(glm::vec3(0.30f, 0.8f, -1.75f), glm::vec3(-0.16f, 0.5f, -1.34f), ivory)); //GRAMA FRONTAL
+    objects.push_back(new Cube(glm::vec3(-2.60f, 0.8f, -1.75f), glm::vec3(-3.00f, 0.5f, -1.34f), brown)); //GRAMA BACK
+    objects.push_back(new Cube(glm::vec3(-2.60f, 1.1f, -1.98f), glm::vec3(-3.00f, 0.8f, -2.29f), brown)); //GRAMA ENCIMA CAMA
+    objects.push_back(new Cube(glm::vec3(-2.60f, 1.7f, -2.70f), glm::vec3(-3.00f, 0.8f, -3.0f), brown)); //TRONCO
+
+    //Hojas
+    objects.push_back(new Cube(glm::vec3(-2.60f, 2.0f, -2.70f), glm::vec3(-3.00f, 1.7f, -3.0f), leaves)); 
+    objects.push_back(new Cube(glm::vec3(-2.60f, 1.7f, -3.00f), glm::vec3(-3.00f, 1.4f, -3.30f), leaves));
+    objects.push_back(new Cube(glm::vec3(-3.00f, 1.7f, -3.00f), glm::vec3(-3.40f, 1.4f, -3.30f), leaves));
+    objects.push_back(new Cube(glm::vec3(-2.20f, 1.7f, -3.00f), glm::vec3(-2.60f, 1.4f, -3.30f), leaves));
+    objects.push_back(new Cube(glm::vec3(-2.20f, 1.7f, -2.70f), glm::vec3(-2.60f, 1.4f, -3.00f), leaves));
+    objects.push_back(new Cube(glm::vec3(-2.20f, 1.7f, -2.40f), glm::vec3(-2.60f, 1.4f, -2.70f), leaves));
+    objects.push_back(new Cube(glm::vec3(-2.20f, 1.7f, -2.70f), glm::vec3(-2.60f, 1.4f, -3.00f), leaves));
+    objects.push_back(new Cube(glm::vec3(-2.60f, 1.7f, -2.70f), glm::vec3(-3.00f, 1.4f, -3.00f), leaves));
+    objects.push_back(new Cube(glm::vec3(-3.00f, 1.7f, -2.70f), glm::vec3(-3.40f, 1.4f, -3.00f), leaves));
+    objects.push_back(new Cube(glm::vec3(-3.00f, 1.7f, -2.40f), glm::vec3(-3.40f, 1.4f, -2.70f), leaves));
+    objects.push_back(new Cube(glm::vec3(-2.60f, 1.7f, -2.40f), glm::vec3(-3.00f, 1.4f, -2.70f), leaves));
+
+    //CAMA
+    objects.push_back(new Cube(glm::vec3(-2.45f, 1.0f, -2.70f), glm::vec3(-2.60f, 0.8f, -3.0f), glass));
+    objects.push_back(new Cube(glm::vec3(-2.45f, 1.0f, -2.70f), glm::vec3(-1.90f, 0.8f, -3.0f), rubber)); 
+
+
+    // Cuerpo principal del Creeper
+    objects.push_back(new Cube(glm::vec3(-1.75f, 1.6f, -1.98f), glm::vec3(-1.95f, 1.0f, -2.30f), green));
+
+    // Cabeza del Creeper
+    objects.push_back(new Cube(glm::vec3(-1.70f, 1.6f, -1.93f), glm::vec3(-2.00f, 1.9f, -2.35f), green));
+
+    // Ojoss
+    objects.push_back(new Cube(glm::vec3(-1.60f, 1.78f, -2.34f), glm::vec3(-2.00f, 1.84f, -2.26f), minecraftChestMaterial));
+    objects.push_back(new Cube(glm::vec3(-1.60f, 1.78f, -2.06f), glm::vec3(-2.00f, 1.84f, -2.14f), minecraftChestMaterial));
+
+    // Boca
+    objects.push_back(new Cube(glm::vec3(-1.60f, 1.73f, -2.28f), glm::vec3(-2.0f, 1.75f, -2.16f), minecraftChestMaterial));
+    objects.push_back(new Cube(glm::vec3(-1.60f, 1.67f, -2.32f), glm::vec3(-2.0f, 1.73f, -2.08f), minecraftChestMaterial));
+    objects.push_back(new Cube(glm::vec3(-1.60f, 1.64f, -2.32f), glm::vec3(-2.0f, 1.67f, -2.27f), minecraftChestMaterial));
+    objects.push_back(new Cube(glm::vec3(-1.60f, 1.64f, -2.13f), glm::vec3(-2.0f, 1.67f, -2.08f), minecraftChestMaterial));
+
+    // Piernas
+    objects.push_back(new Cube(glm::vec3(-1.70f, 0.8f, -2.30f), glm::vec3(-2.0f, 1.0f, -2.17f), green));
+    objects.push_back(new Cube(glm::vec3(-1.70f, 0.8f, -2.13f), glm::vec3(-2.0f, 1.0f, -2.00f), green));
+
+
+    objects.push_back(new Cube(glm::vec3(-1.42f, 0.8f, -0.75f), glm::vec3(-1.09f, 0.5f, -1.12f), minecraftGold)); //ORO
+    objects.push_back(new Cube(glm::vec3(-1.72f, 0.8f, -1.12f), glm::vec3(-1.43f, 0.5f, -1.42f), minecraftLapisLazuli)); //LAPIZLAZULI
+    objects.push_back(new Cube(glm::vec3(-1.72f, 1.1f, -0.82f), glm::vec3(-1.43f, 0.8f, -1.12f), minecraftDiamond)); //DIAMANTE
+    objects.push_back(new Cube(glm::vec3(-3.00f, 1.1f, -0.32f), glm::vec3(-2.43f, 0.8f, 0.50f), minecraftRedstone)); //REDSTONE
+
+    objects.push_back(new Cube(glm::vec3(-3.00f, 1.4f, 0.22f), glm::vec3(-2.73f, 1.1f, 0.50f), minecraftChestMaterial)); 
 }
 
 void render() {
@@ -225,13 +367,6 @@ void render() {
                 continue;
             }
             */
-
-            // Dentro de la función render, reemplaza el renderizado de rectángulo con el renderizado de textura
-            for (const auto& object : objects) {
-                if (Cube* cube = dynamic_cast<Cube*>(object)) {
-                    cube->render(renderer, cube->getTexture());
-                }
-            }
 
 
             float screenX = (2.0f * (x + 0.5f)) / SCREEN_WIDTH - 1.0f;
