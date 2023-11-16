@@ -35,3 +35,7 @@ La escena se compone de varios objetos inspirados en Minecraft, incluido un Cree
 # Rendering Technique
 
 El raytracer utiliza una técnica de trazado de rayos recursivo para simular el comportamiento de la luz en la escena. Calcula reflejos, refracciones y sombras para producir una representación realista. La escena también incluye un palco para un fondo visualmente atractivo.
+
+# Representación Visual del Juego
+![GIf](RayTracerProjectGif.gif)
+
